@@ -51,9 +51,9 @@ include "components/header.php";
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Category Image</label>
                         <input type="file" name="catImage" class="form-control" id="exampleInputPassword1">
-                        <img src="<?php echo $catimagesaddress.$keys['image'] ?>" width="90" alt="">
+                        <img class="mt-3" src="<?php echo $catimagesaddress.$keys['image'] ?>" width="90" alt="">
                     </div>
-                    <button type="submit" name="addCategory" class="btn btn-primary">Add Category</button>
+                    <button type="submit" name="addCategory" class="btn btn-primary">Update Category</button>
                 </form>
             </div>
 
