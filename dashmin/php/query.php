@@ -1,6 +1,8 @@
 <?php
 include "connection.php";
 $catimagesaddress="img/categories/";
+$productimagesaddress="img/products/";
+
 
 //add Category 
 
@@ -65,5 +67,31 @@ if(isset($_POST['deleteCategory'])){
     echo "<script>alert('Data Deleted Successfully')</script>";
 }
 
+
+//add Products 
+
+if(isset($_POST['addProducts'])){
+    $name=$_POST['productName'];
+    $price=$_POST['productprice'];
+    $quantity=$_POST['productquantity'];
+    $imagename=$_FILES['productImage']['name'];
+    $imageobject=$_FILES['productImage']['tmp_name'];
+    $extension= pathinfo($imagename,PATHINFO_EXTENSION);
+    $pathdirectory="img/products/".$imagename;
+    if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "webp"){
+        if(move_uploaded_file($imageobject,$pathdirectory)){
+            //query Prepration
+            $query=$pdo ->prepare("insert into products(name,image,price,quantity) values (:pn,:pimg,:pprice,:pquantity)");
+            $query->bindParam("pn",$name);
+            $query->bindParam("pimg",$imagename);
+            $query->bindParam("pprice",$price);
+            $query->bindParam("pquantity",$quantity);
+            $query->execute();
+            echo "<script>alert('Data Submitted Successfully')</script>";
+        }
+    }else{
+        echo "<script>alert('Invalid file type use only jpg, jpeg, png or webp')</script>";
+    }
+}
 
 ?>
