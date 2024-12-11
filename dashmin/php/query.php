@@ -74,6 +74,7 @@ if (isset($_POST['addProducts'])) {
     $name = $_POST['productName'];
     $price = $_POST['productprice'];
     $quantity = $_POST['productquantity'];
+    $description = $_POST['prodesc'];
     $categoryid = $_POST['cateid'];
     $imagename = $_FILES['productImage']['name'];
     $imageobject = $_FILES['productImage']['tmp_name'];
@@ -82,11 +83,12 @@ if (isset($_POST['addProducts'])) {
     if ($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "webp") {
         if (move_uploaded_file($imageobject, $pathdirectory)) {
             //query Prepration
-            $query = $pdo->prepare("insert into products(name,image,price,quantity,categoryid) values (:pn,:pimg,:pprice,:pquantity,:cid)");
+            $query = $pdo->prepare("insert into products(name,image,price,quantity,description,categoryid) values (:pn,:pimg,:pprice,:pquantity,:pd,:cid)");
             $query->bindParam("pn", $name);
             $query->bindParam("pimg", $imagename);
             $query->bindParam("pprice", $price);
             $query->bindParam("pquantity", $quantity);
+            $query->bindParam("pd", $description);
             $query->bindParam("cid", $categoryid);
             $query->execute();
             echo "<script>alert('Data Submitted Successfully')</script>";
@@ -114,6 +116,7 @@ if (isset($_POST['updateProducts'])) {
     $name = $_POST['productName'];
     $price = $_POST['productprice'];
     $quantity = $_POST['productquantity'];
+    $description = $_POST['prodesc'];
     $categoryid = $_POST['cateid'];
     if (!empty($_FILES['productImage']['name'])) {
         $imagename = $_FILES['productImage']['name'];
@@ -122,13 +125,13 @@ if (isset($_POST['updateProducts'])) {
         $pathdirectory = "img/products/" . $imagename;
         if ($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "webp") {
             if (move_uploaded_file($imageobject, $pathdirectory)) {
-                $query = $pdo->prepare("update products set name = :pName, price = :pprice, quantity = :pquantity, image :pImage, categoryid = :pCategory where id = :proid");
+                $query = $pdo->prepare("update products set name = :pName, price = :pprice, quantity = :pquantity, description = :pd, image = :pImage where id = :proid");
                 $query->bindParam("proid", $id);
                 $query->bindParam("pName", $name);
                 $query->bindParam("pprice", $price);
                 $query->bindParam("pquantity", $quantity);
+                $query->bindParam("pd", $description);
                 $query->bindParam("pImage", $imagename);
-                $query->bindParam("pCategory", $categoryid);
                 $query->execute();
                 echo "<script>alert('Data Updated Successfully')</script>";
             }
@@ -136,12 +139,12 @@ if (isset($_POST['updateProducts'])) {
             echo "<script>alert('Invalid file type. Use only jpg, jpeg, png, or webp')</script>";
         }
     } else {
-        $query = $pdo->prepare("update products set name = :pName, price = :pprice, quantity = :pquantity, categoryid = :pCategory where id = :proid");
+        $query = $pdo->prepare("update products set name = :pName, price = :pprice, quantity = :pquantity, description = :pd where id = :proid");
         $query->bindParam("proid", $id);
         $query->bindParam("pName", $name);
         $query->bindParam("pprice", $price);
         $query->bindParam("pquantity", $quantity);
-        $query->bindParam("pCategory", $categoryid);
+        $query->bindParam("pd", $description);
         $query->execute();
         echo "<script>alert('Data Updated Successfully')</script>";
     }

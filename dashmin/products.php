@@ -17,7 +17,8 @@ include "components/header.php";
                     <th scope="col">Name</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Category Id</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Product Category Name</th>
                     <th scope="col" colspan="2">Action</th>
                 </tr>
             </thead>
@@ -32,6 +33,7 @@ include "components/header.php";
                         <td><?php echo $keys['name'] ?></td>
                         <td><?php echo $keys['price'] ?></td>
                         <td><?php echo $keys['quantity'] ?></td>
+                        <td><?php echo $keys['description'] ?></td>
                         <td><?php echo $keys['categoryid'] ?></td>
                         <td><a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateproduct<?php echo $keys['id'] ?>">Edit</a></td>
                         <td><a href="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#prodelete<?php echo $keys['id'] ?>">Delete</td>
@@ -85,6 +87,10 @@ include "components/header.php";
                                                 aria-describedby="emailHelp">
                                             <div id="emailHelp" class="form-text">
                                             </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlTextarea1" class="form-label">Enter some text here</label>
+                                            <textarea class="form-control" name="prodesc" value="<?php echo $keys['description'] ?>"  id="exampleFormControlTextarea1" rows="3"></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleInputPassword1" class="form-label">Products Image</label>
@@ -157,6 +163,10 @@ include "components/header.php";
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Products Image</label>
                         <input type="file" name="productImage" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Enter some text here</label>
+                        <textarea class="form-control" name="prodesc" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Product Category</label>
