@@ -90,7 +90,7 @@ include "components/header.php";
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleFormControlTextarea1" class="form-label">Enter some text here</label>
-                                            <textarea class="form-control" name="prodesc" value="<?php echo $keys['description'] ?>"  id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <textarea class="form-control" name="prodesc" value=""  id="exampleFormControlTextarea1" rows="3"><?php echo $keys['description'] ?></textarea>
                                         </div>
                                         <div class="mb-3">
                                             <label for="exampleInputPassword1" class="form-label">Products Image</label>
