@@ -24,7 +24,9 @@ include "components/header.php";
             </thead>
             <tbody>
                 <?php
-                $query = $pdo->query("select * from products");
+                $query = $pdo->query("SELECT `products`.*, `categories`.`name` as catname
+                FROM `products` 
+                    inner JOIN `categories` ON `products`.`categoryid` = `categories`.`id`;");
                 $rows = $query->fetchALL(PDO::FETCH_ASSOC);
                 foreach ($rows as $keys) {
                 ?>
@@ -34,7 +36,7 @@ include "components/header.php";
                         <td><?php echo $keys['price'] ?></td>
                         <td><?php echo $keys['quantity'] ?></td>
                         <td><?php echo $keys['description'] ?></td>
-                        <td><?php echo $keys['categoryid'] ?></td>
+                        <td><?php echo $keys['catname'] ?></td>
                         <td><a href="" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateproduct<?php echo $keys['id'] ?>">Edit</a></td>
                         <td><a href="" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#prodelete<?php echo $keys['id'] ?>">Delete</td>
                     </tr>
